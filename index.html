@@ -1,0 +1,185 @@
+<!Doctype html>
+<html lang="en">
+    <head>
+       <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>To_DO_list</title>
+        <link rel="stylesheet" href="css/font-awesome.min.css" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    </head>
+    
+    <body onload="initClock()">
+    
+    
+    
+    <header class="bg-dark mb-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <nav class="navbar justify-content-between">
+            <a class="navbar-brand">Todo List</a>
+            <form class="form-inline">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search your task" aria-label="Search"
+                id="searchtextbox" />
+            </form>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+  <section class="todo-outer">
+    <div class="container">
+      <div class="row justify-content-md-center">
+        <div class="col-sm-12 col-md-8">
+    
+<!--date and time-->
+   <div class="datetime">
+      <div class="date">
+          <span id="dayname">Day</span>
+          <span id="month">Month</span>
+          <span id="daynum">00</span>
+          <span id="year">Year</span>
+          
+      </div>
+      
+      <div class="time">
+          <span id="hour">00</span>:
+          <span id="minutes">00</span>:
+          <span id="seconds">00</span>
+          <span id="period">AM</span>
+      </div>
+       
+   </div>
+   
+   <h1 class="head">Welcome in Todo List Application</h1>
+          <div class="todo-inner">
+            <div class="form-row">
+              <div class="col-8 mr-sm-2">
+                <div id="inputtext">
+                <input type="text" class="form-control" placeholder="Enter your task" id="addtaskinput" />
+                <input type="hidden" id="saveindex">
+                </div>
+                
+<!--
+                <input type="text" class="form-control" placeholder="set time" id="addtimeinput" />
+                <input type="hidden" id="savetime">
+-->
+              </div>
+              <img src="mic.png" style="width: 20px;height: 30px;margin-right: 10px" onClick="record()">
+              <button type="button" class="btn btn-success mr-sm-2" id="addtaskbtn">
+                Add Task
+              </button>
+              <button type="button" class="btn btn-success mr-sm-2" id="savetaskbtn" style="display: none;">
+                Save Task
+              </button>
+<!--
+                <button type="button" class="btn btn-success mr-sm-2" id="addtimebtn">Set Time</button>
+                <button type="button" class="btn btn-success mr-sm-2" id="savetimebtn" style="display: none;">
+                Save Time
+              </button>
+-->
+              <button type="button" id="deleteallbtn" class="btn btn-danger">
+                Delete All
+              </button>
+            </div>
+            <div class="to-do-output">
+              <table class="table table-striped mt-3 mb-0" id="addedtasklist">
+                
+              </table>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="js/main.js"></script>
+  
+  
+  
+  
+  
+    
+   
+   <script type="text/javascript">
+       var data=document.getElementById("addedtasklist.value");
+    function updateClock(){
+      var now = new Date();
+      var dname = now.getDay(),
+          mo = now.getMonth(),
+          dnum = now.getDate(),
+          yr = now.getFullYear(),
+          hou = now.getHours(),
+          min = now.getMinutes(),
+          sec = now.getSeconds(),
+          pe = "AM";
+           
+        
+        
+        
+        
+              if(hou==16&&min==19&&sec==0){
+              
+              console.log("hello");
+              return ;
+          }
+         
+         
+        
+          if(hou >= 12){
+            pe = "PM";
+          }
+          if(hou == 0){
+            hou = 12;
+          }
+          if(hou > 12){
+            hou = hou - 12;
+          }
+
+          Number.prototype.pad = function(digits){
+            for(var n = this.toString(); n.length < digits; n = 0 + n);
+            return n;
+          }
+
+          var months = ["January", "February", "March", "April", "May", "June", "July", "Augest", "September", "October", "November", "December"];
+          var week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+          var ids = ["dayname", "month", "daynum", "year", "hour", "minutes", "seconds", "period"];
+          var values = [week[dname], months[mo], dnum.pad(2), yr, hou.pad(2), min.pad(2), sec.pad(2), pe];
+          for(var i = 0; i < ids.length; i++)
+          document.getElementById(ids[i]).firstChild.nodeValue = values[i];
+    }
+
+    function initClock(){
+      updateClock();
+      window.setInterval("updateClock()", 1);
+    }
+    </script>
+    
+    <script>
+        
+
+</script>
+    
+    
+    <script>
+        function record() {
+            var recognition = new webkitSpeechRecognition();
+            recognition.lang = "en";
+
+            recognition.onresult = function(event) {
+                // console.log(event);
+                document.getElementById('addtaskinput').value = event.results[0][0].transcript;
+            }
+            recognition.start();
+
+        }
+    </script>
+    
+    
+    
+    
+   
+    </body>
+</html>
